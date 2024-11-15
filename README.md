@@ -25,14 +25,20 @@ Make sure you update the paths of the csv in the `neo4j-db/load_nodes.py` & `neo
 
 1. Install [Neo4j Desktop](https://neo4j.com/download/)
 2. Click on the 3 dots besides the big blue button, and then Settings. Paste the contents of `neo4j.conf` file.
-3. Edit the username and password in the .env file
-4. Create a database named `careervillage`
-5. Click the big blue button `Open` which will route you to Neo4j Desktop Client
+3. Edit the username and password in the .env file.
+4. Create a database named `careervillage` and update the `DB_NAME` variable in the `./neo4j-db/.env` file.
+5. Click the big blue button `Open` which will route you to Neo4j Desktop Client.
 6. Run the following command in the prompt `:server user add`. Set your Username & Password=and assign the role 'Admin'.
 7. Install the dependencies using `pip3 install neo4j-db/requirements.txt`
-8. Run the `neo4j-db/load_nodes.py` which will create a node corresponding to each record in the CSV file.
-9. Run the `neo4j-db/create_relationships.py` which will create relationships between nodes.
-10. Run the following set of queries specified in the `neo4j-db/cypher_queries.txt` file and visualise the results visually on Neo4j Desktop Client. 
+8. Set up envornment varaibles file `.env` in the ./neo4j-db directory.
+    ```
+    DB_NAME=""
+    DB_USER=""
+    DB_PASSWORD=""
+    ```
+9. Run the `neo4j-db/load_nodes.py` which will create a node corresponding to each record in the CSV file.
+10. Run the `neo4j-db/create_relationships.py` which will create relationships between nodes.
+11. Run the following set of queries specified in the `neo4j-db/cypher_queries.txt` file and visualise the results visually on Neo4j Desktop Client. 
 
 Post completion, a beautiful graph will emerge in the neo4j desktop client
 
