@@ -32,7 +32,7 @@ numQueries = -1
 with open(f"{dataset_path}/{PROFESSIONALS}.csv", newline='', encoding=ISO_8859_1) as csvfile:
     readerObj = csv.reader(csvfile, delimiter=',')
     for row in readerObj:
-        print(f"row-num: {row}")
+        # print(f"row-num: {row}")
         if numQueries==-1:
             numQueries +=1
             continue
