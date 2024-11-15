@@ -1,0 +1,97 @@
+----------------------
+-- Selection
+----------------------
+
+-- Query 1: This query finds all professionals associated with the tag 'college' and returns both the professional and the tag. 
+It matches any relationship type between the Professionals and Tags nodes.
+
+MATCH (p:Professionals)-[]->(t:Tags)
+WHERE t.tags_tag_name='college'
+RETURN p,t
+
+-- Query 2: This query identifies students associated with the tag 'college' and who are members of a group classified as a 'youth program.' 
+It returns the students, the tag, and the associated group. No results indicate either no such data exists or the query criteria are too strict.
+
+MATCH (t:Tags)<-[:HAS_TAG]-(s:Students)-[:MEMBER_IN]->(b)
+WHERE t.tags_tag_name='college'
+AND b.groups_group_type='youth program'
+RETURN s,t,b
+
+-- Query 3: This query fetches all emails received by a professional with the given professionals_id. 
+The absence of results suggests no emails are linked to this professional in the data.
+
+MATCH (p:Professionals{professionals_id: '0079e89bf1544926b98310e81315b9f1'}) - [:GOT_EMAIL]->(e:Emails)
+RETURN e
+
+
+
+----------------------
+-- Recursion
+----------------------
+
+-- Query 4: This query retrieves all answers (at any depth) replying to a specific question. 
+It uses variable-length recursion (*1..) to find a chain of replies starting from questions.
+
+MATCH (q:Questions)<-[:IS_REPLY_TO*1..]-(a:Answers)
+RETURN q,a
+
+-- Query 5: This query limits the recursion depth to 1 or 2 levels, 
+fetching answers within two levels of replies to a question.
+
+MATCH (q:Questions)<-[:IS_REPLY_TO*1..2]-(a:Answers)
+RETURN q, a
+
+-- Query 6: Similar to Query 4, but limits the recursion depth to 3 levels, 
+fetching answers within three levels of replies to a question.
+
+MATCH (q:Questions)<-[:IS_REPLY_TO*1..3]-(a:Answers)
+RETURN q,a
+
+----------------------
+-- Aggregation
+----------------------
+
+-- Query 7: This query counts the number of professionals linked to at least one answer. 
+It calculates the total number of unique professionals who have authored answers.
+
+MATCH (p:Professionals)-[]->(a:Answers)
+RETURN count(p)
+
+-- Query 8: This query counts the number of professionals associated with the tag 'college.' 
+It filters professionals by their relationship with this specific tag.
+
+MATCH (p:Professionals)-[:HAS_TAG]->(t:Tags)
+WHERE t.tags_tag_name='college'
+RETURN count(p)
+
+-- Query 9: This query finds the most popular tag (i.e., the tag associated with the highest number of professionals). 
+It returns the tag name and the count, ordered by the count in descending order, and limits the result to one tag.
+
+MATCH (p:Professionals)-[:HAS_TAG]->(t:Tags)
+RETURN t.tags_tag_name AS TagName,
+COUNT(p) ORDER BY COUNT(p) DESC
+LIMIT 1
+
+
+----------------------
+-- Pattern Match
+----------------------
+
+-- Query 10: This query identifies all answers linked to questions that are associated with tags. 
+It retrieves the answer, the question, and the tag in one match.
+
+MATCH (a:Answers)-[]->(q:Questions)-[]->(t:Tags)
+RETURN a,q,t
+
+-- Query 11: This query matches professionals connected to groups that students are also members of. 
+It retrieves the professionals, the groups, and the students.
+
+MATCH (p:Professionals)-[]->(g:Groups)<-[]-(s:Students)
+RETURN p, g, s
+
+-- Query 12: This query matches professionals and students who share tags, retrieving all such pairs along with the tag. 
+It limits the output to 100,000 results for performance.
+
+MATCH (p:Professionals)-[]->(t:Tags)<-[]-(s:Students)
+RETURN p, t, s LIMIT 100000
+
