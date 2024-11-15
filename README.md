@@ -25,20 +25,19 @@ Make sure you update the paths of the csv in the `neo4j-db/load_nodes.py` & `neo
 
 1. Install [Neo4j Desktop](https://neo4j.com/download/)
 2. Click on the 3 dots besides the big blue button, and then Settings. Paste the contents of `neo4j.conf` file.
-3. Edit the username and password in the .env file.
-4. Create a database named `careervillage` and update the `DB_NAME` variable in the `./neo4j-db/.env` file.
-5. Click the big blue button `Open` which will route you to Neo4j Desktop Client.
+3. Create a database named `careervillage`
+4. Edit the username, password and database name in the `.env` file in the `./neo4j-db` directory.
+    ```
+    DB_NAME=careervillage
+    DB_USER=neo4j
+    DB_PASSWORD=*****
+    ```
+5. Start the database and click the big blue button `Open` which will route you to Neo4j Browser.
 6. Run the following command in the prompt `:server user add`. Set your Username & Password=and assign the role 'Admin'.
 7. Install the dependencies using `pip3 install neo4j-db/requirements.txt`
-8. Set up envornment varaibles file `.env` in the ./neo4j-db directory.
-    ```
-    DB_NAME=""
-    DB_USER=""
-    DB_PASSWORD=""
-    ```
-9. Run the `neo4j-db/load_nodes.py` which will create a node corresponding to each record in the CSV file.
-10. Run the `neo4j-db/create_relationships.py` which will create relationships between nodes.
-11. Run the following set of queries specified in the `neo4j-db/cypher_queries.txt` file and visualise the results visually on Neo4j Desktop Client. 
+8. Run the `neo4j-db/load_nodes.py` which will create a node corresponding to each record in the CSV file.
+9. Run the `neo4j-db/create_relationships.py` which will create relationships between nodes.
+10. Run the following set of queries specified in the `neo4j-db/cypher_queries.txt` file and visualise the results visually on Neo4j Desktop Client. 
 
 Post completion, a beautiful graph will emerge in the neo4j desktop client
 
@@ -61,12 +60,12 @@ Post completion, a beautiful graph will emerge in the neo4j desktop client
 
 ### Running the mysql-python-client
 Steps to run this application
-- Set up envornment varaibles file `.env` in the ./sql-db directory
-```
-DB_NAME=""
-DB_USER=""
-DB_PASSWORD=""
-```
+- Set up envornment varaibles file `.env` in the `./sql-db` directory
+    ```
+    DB_NAME=careervillage
+    DB_USER=mysqluser
+    DB_PASSWORD=*****
+    ```
 
 - Execute the following command
 
@@ -87,5 +86,3 @@ Following are the specifications of the environment on which this mysql-pyhton-c
 - Memory: 16 GB
 - MySQL version: Community Edition - 8.0.32
 - Python version: 3.9.13
-
-
