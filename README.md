@@ -36,6 +36,8 @@ Make sure you update the paths of the csv in the `neo4j-db/load_nodes.py` & `neo
 
 Post completion, a beautiful graph will emerge in the neo4j desktop client
 
+![image](./neo4j-db/images/GraphDB-Schema.png)
+
 ## Steps for MySQL
 
 ### Pre-requisities to run this mysql-python-client
@@ -70,6 +72,8 @@ The complete process of loading the data has been automated and progress updates
 
 ### Result
 After successfully loading the daatset into MySQL the following databse will be created
+
+![image](./sql-db/images/CareerVillage-ER.png)
 
 ### Environment specifications
 Following are the specifications of the environment on which this mysql-pyhton-client  was last executed/tested: 
